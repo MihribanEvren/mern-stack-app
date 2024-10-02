@@ -28,12 +28,21 @@ app.use(
   })
 );
 
-// Authantication with passport.js library
+// Authentication with passport.js library
 // Session'dan sonra, Route'lardan önce yapılır
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/users', userRouter);
+
+// Auth
+app.post('/api/auth', passport.authenticate('local'), (req, res) => {
+  res.sendStatus(200).json(req.user);
+});
+
+app.get('/api/auth/status', (req, res) => {
+  return req.user ? res.send(req.user) : res.sendStatus(401);
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
