@@ -29,7 +29,7 @@ export const createUser = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name, email, age } = req.body;
+  const { name, email, age, password } = req.body;
   const user = new User({ name, email, age, password });
   await user
     .save()
@@ -48,7 +48,12 @@ export const updateUser = async (req, res) => {
 
   const { id } = req.params;
   const { name, email, age, password } = req.body;
-  await User.findByIdAndUpdate(id, { name, email, age, password })
+  const updatedData = { name, email, age };
+  if (password) {
+    updatedData.password = password;
+  }
+
+  await User.findByIdAndUpdate(id, updatedData)
     .then(() => res.json({ msg: 'User updated' }))
     .catch((err) => res.status(500).json(err));
 };

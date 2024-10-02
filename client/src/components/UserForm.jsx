@@ -5,7 +5,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 function UserForm() {
   const { id } = useParams();
-  const [formData, setFormData] = useState({ name: '', email: '', age: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    age: '',
+    password: '',
+  });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const isEditing = Boolean(id);
@@ -35,8 +40,14 @@ function UserForm() {
     setErrors({});
 
     const request = isEditing
-      ? axios.put(`http://localhost:5000/api/users/${id}`, formData)
-      : axios.post('http://localhost:5000/api/users', formData);
+      ? axios.put(`http://localhost:5000/api/users/${id}`, {
+          ...formData,
+          password: formData.password,
+        })
+      : axios.post('http://localhost:5000/api/users', {
+          ...formData,
+          password: formData.password,
+        });
 
     request
       .then(() => {
@@ -108,6 +119,22 @@ function UserForm() {
               onChange={handleChange}
             />
             {errors.age && <div className="text-danger">{errors.age}</div>}
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="form-control"
+              placeholder="Enter password"
+              value={formData.password || ''}
+              onChange={handleChange}
+            />
+            {errors.password && (
+              <div className="text-danger">{errors.password}</div>
+            )}
           </div>
           <button type="submit" className="btn btn-success w-100">
             {isEditing ? 'Update' : 'Add'}
