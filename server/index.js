@@ -15,11 +15,11 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(
   session({
-    secret: 'mihi the dev',
+    secret: process.env.secret,
     saveUninitialized: false,
     resave: false,
     cookie: {
