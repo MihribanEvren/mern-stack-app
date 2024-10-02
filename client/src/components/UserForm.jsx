@@ -41,8 +41,14 @@ function UserForm() {
     setErrors({});
 
     const request = isEditing
-      ? axios.put(`http://localhost:5000/api/users/${id}`, formData)
-      : axios.post('http://localhost:5000/api/users', formData);
+      ? axios.put(`http://localhost:5000/api/users/${id}`, {
+          ...formData,
+          password: formData.password,
+        })
+      : axios.post('http://localhost:5000/api/users', {
+          ...formData,
+          password: formData.password,
+        });
 
     request
       .then(() => {
@@ -115,7 +121,11 @@ function UserForm() {
             />
             {errors.age && <div className="text-danger">{errors.age}</div>}
           </div>
+<<<<<<< HEAD
           <div className="form-group mb-4">
+=======
+          <div className="form-group mb-3">
+>>>>>>> backend
             <label htmlFor="password" className="form-label">
               Password
             </label>
@@ -124,7 +134,11 @@ function UserForm() {
               id="password"
               className="form-control"
               placeholder="Enter password"
+<<<<<<< HEAD
               value={formData.password}
+=======
+              value={formData.password || ''}
+>>>>>>> backend
               onChange={handleChange}
             />
             {errors.password && (

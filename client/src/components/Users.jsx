@@ -57,7 +57,7 @@ function Users() {
             </thead>
             <tbody>
               {filteredUsers.map((user) => (
-                <tr key={user.id}>
+                <tr key={user._id}>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td className="text-center">{user.age}</td>
