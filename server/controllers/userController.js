@@ -30,7 +30,7 @@ export const createUser = async (req, res) => {
   }
 
   const { name, email, age } = req.body;
-  const user = new User({ name, email, age });
+  const user = new User({ name, email, age, password });
   await user
     .save()
     .then((user) => res.json(user))
@@ -47,8 +47,8 @@ export const updateUser = async (req, res) => {
   }
 
   const { id } = req.params;
-  const { name, email, age } = req.body;
-  await User.findByIdAndUpdate(id, { name, email, age })
+  const { name, email, age, password } = req.body;
+  await User.findByIdAndUpdate(id, { name, email, age, password })
     .then(() => res.json({ msg: 'User updated' }))
     .catch((err) => res.status(500).json(err));
 };
