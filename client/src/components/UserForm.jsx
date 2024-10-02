@@ -5,7 +5,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 function UserForm() {
   const { id } = useParams();
-  const [formData, setFormData] = useState({ name: '', email: '', age: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    age: '',
+    password: '',
+  });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const isEditing = Boolean(id);
@@ -19,6 +24,7 @@ function UserForm() {
             name: res.data.name,
             email: res.data.email,
             age: res.data.age,
+            password: '',
           });
         })
         .catch((err) => console.log(err));
@@ -108,6 +114,22 @@ function UserForm() {
               onChange={handleChange}
             />
             {errors.age && <div className="text-danger">{errors.age}</div>}
+          </div>
+          <div className="form-group mb-4">
+            <label htmlFor="password" className="form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="form-control"
+              placeholder="Enter password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            {errors.password && (
+              <div className="text-danger">{errors.password}</div>
+            )}
           </div>
           <button type="submit" className="btn btn-success w-100">
             {isEditing ? 'Update' : 'Add'}
