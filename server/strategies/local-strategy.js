@@ -26,7 +26,7 @@ export default passport.use(
         throw new Error('Bad credentials');
       done(null, findUser);
     } catch (error) {
-      done(err, null);
+      done(error, null);
     }
   })
 );
