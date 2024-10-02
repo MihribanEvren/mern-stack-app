@@ -5,6 +5,7 @@ import session from 'express-session';
 import passport from 'passport';
 import userRouter from './routes/userRouter.js';
 import dotenv from 'dotenv';
+import { authMiddleware } from './middleware/authMiddleware.js';
 
 dotenv.config();
 
@@ -36,7 +37,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/api/users', userRouter);
+app.use('/api/users', authMiddleware, userRouter);
 
 // Auth
 app.post('/api/auth', passport.authenticate('local'), (req, res) => {
