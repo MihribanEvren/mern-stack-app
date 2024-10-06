@@ -24,10 +24,3 @@ A full stack CRUD application built with Node.js, Express.js, MongoDB, React.
   - React Toastify
   - Bootstrap
 
-## Installation
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/repo-name.git
-cd repo-name
