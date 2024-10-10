@@ -37,7 +37,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/api/users', authMiddleware, userRouter);
+app.use('/api/users', userRouter);
 
 // Auth
 app.post('/api/auth', passport.authenticate('local'), (req, res) => {
